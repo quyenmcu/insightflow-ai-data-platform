@@ -178,6 +178,12 @@ multi-statement build with its temporary tables. The byte limit is a query cost
 control, not a monthly spending cap. The builder reports the successful model
 job's billed bytes.
 
+## Scheduled operation
+
+The [weekly workflow and access setup](../docs/SCHEDULING.md) run the same raw
+loader and model builder on GitHub with short-lived Google credentials. The
+workflow waits for tests, prevents overlapping runs, and keeps a stage report.
+
 ## References
 
 - [Official Google Cloud CLI Docker image](https://docs.cloud.google.com/sdk/docs/downloads-docker)

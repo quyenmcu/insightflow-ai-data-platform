@@ -1,0 +1,13 @@
+{
+  "projectId": "insightflow-ai-20261102-fefa",
+  "projectNumber": "248635334022",
+  "location": "us-central1",
+  "rawBucket": "insightflow-ai-20261102-fefa-raw",
+  "sourcePrefix": "olist/09b5148b3a846d400c6c303505b23439cc111b07321abcf203c84894db512afa/",
+  "repository": "quyenmcu/insightflow-ai-data-platform",
+  "repositoryId": "1442527558",
+  "repositoryOwnerId": "129649836",
+  "serviceAccountId": "insightflow-pipeline",
+  "poolId": "insightflow-github",
+  "providerId": "github-actions"
+}

@@ -12,3 +12,5 @@ data/processed/*
 *.tfstate
 *.tfstate.*
 .terraform/
+gha-creds-*.json
+infrastructure/.dataset-access-*.json

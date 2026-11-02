@@ -11,3 +11,5 @@ __pycache__
 .terraform
 *.tfstate
 *.tfstate.*
+gha-creds-*.json
+infrastructure/.dataset-access-*.json

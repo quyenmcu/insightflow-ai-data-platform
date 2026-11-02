@@ -1,0 +1,62 @@
+name: InsightFlow cloud pipeline
+
+on:
+  schedule:
+    # Monday 00:00 UTC = Monday 08:00 Asia/Taipei.
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/cloud-pipeline.yml'
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: insightflow-cloud-dev
+  cancel-in-progress: false
+
+jobs:
+  tests:
+    uses: ./.github/workflows/tests.yml
+    permissions:
+      contents: read
+
+  pipeline:
+    needs: tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Check out trusted main branch
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Authenticate to Google Cloud with short-lived identity
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: insightflow-ai-20261102-fefa
+          workload_identity_provider: projects/248635334022/locations/global/workloadIdentityPools/insightflow-github/providers/github-actions
+          service_account: insightflow-pipeline@insightflow-ai-20261102-fefa.iam.gserviceaccount.com
+
+      - name: Set up verified Cloud SDK
+        uses: google-github-actions/setup-gcloud@v3
+        with:
+          version: '591.0.0'
+
+      - name: Load raw data and publish validated analytics
+        run: python3 -u infrastructure/run_cloud_pipeline.py
+
+      - name: Preserve the pipeline report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: cloud-pipeline-report-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/processed/cloud_pipeline_report.json
+          if-no-files-found: warn
+          retention-days: 14
