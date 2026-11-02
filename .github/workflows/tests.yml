@@ -1,0 +1,35 @@
+name: Pipeline tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Configure disposable test environment
+        run: |
+          cp .env.example .env
+          docker compose config --quiet
+
+      - name: Build ingestion image
+        run: docker compose build ingestion
+
+      - name: Run integration tests
+        run: >-
+          docker compose run --rm
+          -v "$PWD/tests:/app/tests:ro"
+          ingestion python -m pytest -q -p no:cacheprovider /app/tests
+
+      - name: Stop test services
+        if: always()
+        run: docker compose down --volumes --remove-orphans

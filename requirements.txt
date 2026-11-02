@@ -1,0 +1,6 @@
+pandas>=2.2,<3
+SQLAlchemy>=2.0,<3
+psycopg2-binary>=2.9,<3
+python-dotenv>=1.0,<2
+pytest>=8,<10
+kaggle>=1.7,<2
