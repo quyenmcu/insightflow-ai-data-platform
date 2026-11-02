@@ -2,7 +2,7 @@
 
 An e-commerce data and AI platform using the Olist dataset. The current setup loads nine source CSV files into PostgreSQL, builds typed staging tables, and provides order and daily sales analytics.
 
-**Status:** the local data pipeline works, and the Google Cloud storage foundation is provisioned. BigQuery table loading, prediction models, the AI assistant, and the dashboard remain in the [roadmap](docs/ROADMAP.md).
+**Status:** the local data pipeline works, and all nine BigQuery raw tables are loaded from the private cloud landing area. BigQuery staging and analytics models, prediction models, the AI assistant, and the dashboard remain in the [roadmap](docs/ROADMAP.md).
 
 Google Cloud setup begins with the [cloud foundation guide](infrastructure/README.md).
 
@@ -106,12 +106,12 @@ The verification query reports differences between summary and staging totals; e
 Run the integration checks, which create and drop temporary test databases:
 
 ```powershell
-docker compose run --rm -v "${PWD}/tests:/app/tests:ro" ingestion python -m pytest -q /app/tests
+docker compose run --rm -v "${PWD}/tests:/app/tests:ro" -v "${PWD}/infrastructure:/app/infrastructure:ro" ingestion python -m pytest -q /app/tests
 ```
 
 The checks cover repeat loads and builds, multiline Unicode CSV fields, UTF-8 byte-order marks, leading zeros, malformed input, aggregation without multiplied totals, date labels, and rollback after invalid values or foreign keys. Docker runs Python independently of the local `.venv`.
 
-GitHub Actions runs this suite on pushes, pull requests, and manual workflow runs. CI uses synthetic CSV fixtures and a disposable PostgreSQL database; it does not download Olist or require cloud credentials. See the [workflow](.github/workflows/tests.yml).
+GitHub Actions runs this suite on pushes, pull requests, and manual workflow runs. CI uses synthetic CSV fixtures, a disposable PostgreSQL database, and mocked cloud responses; it does not download Olist or require cloud credentials. See the [workflow](.github/workflows/tests.yml).
 
 ## Project files
 

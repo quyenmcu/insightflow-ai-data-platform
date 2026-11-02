@@ -43,7 +43,22 @@ dataset locations, and project-scoped budget settings were also verified with
 
 ## What remains
 
-BigQuery datasets are created but contain no tables yet. The next milestone is
-to load the nine CSV files with explicit schemas, validate record counts, and
-port staging and analytics models to GoogleSQL. PostgreSQL remains the working
-local implementation. Run instructions are in the [cloud foundation guide](../infrastructure/README.md).
+The nine raw tables are loaded with explicit STRING schemas. Successful load
+jobs, zero rejected records, table schemas, and row counts were verified:
+
+| Raw table | Rows |
+| --- | ---: |
+| customers | 99,441 |
+| geolocation | 1,000,163 |
+| order_items | 112,650 |
+| order_payments | 103,886 |
+| order_reviews | 99,224 |
+| orders | 99,441 |
+| products | 32,951 |
+| sellers | 3,095 |
+| product_category_name_translation | 71 |
+| **Total** | **1,550,922** |
+
+The next milestone is to port typed staging and analytics models to GoogleSQL.
+Those two datasets remain empty. PostgreSQL retains the working local models.
+Run instructions are in the [cloud foundation guide](../infrastructure/README.md).

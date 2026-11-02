@@ -18,7 +18,8 @@ Cloud foundation progress:
 - [x] Configure a project-scoped monthly alert budget.
 - [x] Create a private Cloud Storage bucket and upload the nine source CSV files with a checksum manifest.
 - [x] Create co-located raw, staging, and analytics BigQuery datasets.
-- [ ] Load and validate BigQuery tables, then port staging and analytics models.
+- [x] Load and validate all nine BigQuery raw tables against the source snapshot.
+- [ ] Port typed staging and analytics models to GoogleSQL.
 
 1. **Cloud landing and warehouse:** choose a Google Cloud project, configure a raw Cloud Storage landing area, model analytics in BigQuery, and document cost controls.
 2. **Orchestration:** schedule ingestion and transformations with retries, dependency checks, and useful failure reporting.

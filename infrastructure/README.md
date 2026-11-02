@@ -2,8 +2,8 @@
 
 Status: the dedicated development project, private Cloud Storage landing area,
 three BigQuery datasets, and monthly alert budget are created. The nine Olist
-CSV files and their checksum manifest are uploaded. BigQuery datasets are empty;
-loading and modeling warehouse tables is the next milestone.
+CSV files and their checksum manifest are uploaded. The nine BigQuery raw tables
+are loaded and verified. Typed staging and analytics models remain to be ported.
 
 See [the setup record](../docs/CLOUD_SETUP.md) for the deployed resource names.
 
@@ -85,6 +85,48 @@ prefix, skips existing objects, and then verifies the cloud copy. The local CSVs
 can be in `data/raw` or `data/raw/olist`, as configured in `.cloud.local.json`.
 An existing object with unexpected content causes verification to fail. No
 service-account keys or public access are needed.
+
+## Load BigQuery raw tables
+
+```powershell
+.\infrastructure\load_bigquery.ps1
+```
+
+The load script checks Cloud Storage object sizes and checksums against the
+validated source contract, then loads all nine tables into `raw`. The explicit
+schemas in `bigquery_tables.json` use nullable STRING columns to preserve IDs,
+ZIP prefixes, and raw source values. CSV headers are skipped; UTF-8, quoted
+newlines, and embedded ASCII control characters are supported. Malformed records
+and unknown fields are rejected rather than skipped.
+
+After each table, the script verifies the load job succeeded, accepted the
+expected row count with zero rejected records, and produced the expected schema
+and table row count. It prints job IDs and source SHA-256 digests for provenance.
+Row counts and schemas are read through metadata APIs; verification does not
+submit data-scanning SQL queries.
+
+Each successful load replaces one table atomically. **The nine-table batch is
+not a single transaction.** A failure stops the batch; rerunning refreshes the
+tables without appending duplicates. Do not run downstream transformations until
+the entire load has succeeded. BigQuery CSV empty-field handling can differ from
+PostgreSQL's handling of quoted empty strings; normalize blanks in staging.
+
+Verify the existing tables without reloading:
+
+```powershell
+.\infrastructure\load_bigquery.ps1 -VerifyOnly
+```
+
+`ingestion.batch.prepare_bigquery` generates the load contract by checking exact
+CSV headers and record widths, counting records with a CSV parser, and requiring
+SHA-256 agreement with the recorded uploaded snapshot. When preparing a new
+snapshot, regenerate the contract after updating the source manifest; do not
+hand-edit expected counts to bypass a load mismatch.
+
+The Cloud CLI wrapper can run the SDK's bundled Python through its `python3`
+tool option. The loader receives only project, location, bucket, and source-prefix
+settings over stdin. Billing identifiers and repository credentials are not
+mounted in that container.
 
 ## References
 

@@ -5,15 +5,19 @@
 #   .\infrastructure\cloud.ps1 bq version
 $ErrorActionPreference = 'Stop'
 
-if ($args.Count -eq 0 -or $args[0] -notin @('gcloud', 'bq')) {
-    throw 'Usage: .\infrastructure\cloud.ps1 <gcloud|bq> [arguments]'
+if ($args.Count -eq 0 -or $args[0] -notin @('gcloud', 'bq', 'python3')) {
+    throw 'Usage: .\infrastructure\cloud.ps1 <gcloud|bq|python3> [arguments]'
 }
 
 $cloudTool = $args[0]
+if ($cloudTool -eq 'python3') {
+    # The stable image bundles Python inside the SDK rather than on PATH.
+    $cloudTool = '/usr/lib/google-cloud-sdk/platform/bundledpythonunix/bin/python3'
+}
 $cloudToolArguments = @($args | Select-Object -Skip 1)
 $repositoryRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
 $dockerArguments = @('run', '--rm', '-i')
-if (-not [Console]::IsInputRedirected -and -not [Console]::IsOutputRedirected) {
+if (-not $MyInvocation.ExpectingInput -and -not [Console]::IsInputRedirected -and -not [Console]::IsOutputRedirected) {
     $dockerArguments += '-t'
 }
 
@@ -28,7 +32,11 @@ $dockerArguments += @(
     $cloudTool
 )
 
-& docker @dockerArguments @cloudToolArguments
+if ($MyInvocation.ExpectingInput) {
+    $input | & docker @dockerArguments @cloudToolArguments
+} else {
+    & docker @dockerArguments @cloudToolArguments
+}
 if ($LASTEXITCODE -ne 0) {
     throw "Google Cloud command failed with exit code $LASTEXITCODE."
 }

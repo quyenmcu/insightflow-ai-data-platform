@@ -28,6 +28,7 @@ jobs:
         run: >-
           docker compose run --rm
           -v "$PWD/tests:/app/tests:ro"
+          -v "$PWD/infrastructure:/app/infrastructure:ro"
           ingestion python -m pytest -q -p no:cacheprovider /app/tests
 
       - name: Stop test services
