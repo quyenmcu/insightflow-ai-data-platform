@@ -19,7 +19,7 @@ Cloud foundation progress:
 - [x] Create a private Cloud Storage bucket and upload the nine source CSV files with a checksum manifest.
 - [x] Create co-located raw, staging, and analytics BigQuery datasets.
 - [x] Load and validate all nine BigQuery raw tables against the source snapshot.
-- [ ] Port typed staging and analytics models to GoogleSQL.
+- [x] Port typed staging and analytics models to GoogleSQL with transactional refresh and PostgreSQL parity checks.
 
 1. **Cloud landing and warehouse:** choose a Google Cloud project, configure a raw Cloud Storage landing area, model analytics in BigQuery, and document cost controls.
 2. **Orchestration:** schedule ingestion and transformations with retries, dependency checks, and useful failure reporting.
@@ -28,4 +28,4 @@ Cloud foundation progress:
 5. **Application:** expose analytics and predictions through an API and dashboard.
 6. **Operations:** add deployment automation, monitoring, and operational documentation.
 
-Each milestone should have an implementation branch, tests or recorded validation, and documentation. The cloud storage foundation is provisioned; BigQuery warehouse models, machine learning, the assistant, and the dashboard have not been implemented yet.
+Each milestone should have an implementation branch, tests or recorded validation, and documentation. The cloud warehouse models are implemented; orchestration, machine learning, the assistant, and the dashboard remain ahead.

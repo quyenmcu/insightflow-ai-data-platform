@@ -2,7 +2,7 @@
 
 An e-commerce data and AI platform using the Olist dataset. The current setup loads nine source CSV files into PostgreSQL, builds typed staging tables, and provides order and daily sales analytics.
 
-**Status:** the local data pipeline works, and all nine BigQuery raw tables are loaded from the private cloud landing area. BigQuery staging and analytics models, prediction models, the AI assistant, and the dashboard remain in the [roadmap](docs/ROADMAP.md).
+**Status:** the local and BigQuery data pipelines include raw ingestion, typed staging, and validated analytics models. Scheduling, prediction models, the AI assistant, and the dashboard remain in the [roadmap](docs/ROADMAP.md).
 
 Google Cloud setup begins with the [cloud foundation guide](infrastructure/README.md).
 

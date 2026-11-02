@@ -59,6 +59,27 @@ jobs, zero rejected records, table schemas, and row counts were verified:
 | product_category_name_translation | 71 |
 | **Total** | **1,550,922** |
 
-The next milestone is to port typed staging and analytics models to GoogleSQL.
-Those two datasets remain empty. PostgreSQL retains the working local models.
-Run instructions are in the [cloud foundation guide](../infrastructure/README.md).
+The nine typed staging tables and materialized `analytics.order_summary` and
+`analytics.daily_sales` models are also implemented. They publish atomically
+after source-quality assertions and exact comparison of seven metrics against
+the PostgreSQL baseline. `analytics.build_runs` records successful refreshes and
+their snapshot fingerprints. Run instructions are in the
+[cloud foundation guide](../infrastructure/README.md).
+
+The published BigQuery models matched all seven PostgreSQL baseline metrics:
+
+| Metric | Verified value |
+| --- | ---: |
+| Orders | 99,441 |
+| Item value, all orders | R$13,591,643.70 |
+| Payments, all orders | R$16,008,872.12 |
+| Delivered orders | 96,478 |
+| Delivered-order item GMV | R$13,221,498.11 |
+| Deliveries with usable date labels | 96,470 |
+| Late deliveries by calendar date | 6,534 |
+
+The successful model build ID is `3e97f99a89f74f50b57869e999913878`.
+Its model query billed 759,169,024 bytes, below the configured 1 GiB limit.
+The source-projection dry run estimated 130,641,310 bytes. Synthetic GoogleSQL
+fixtures also passed before publication. Scheduling, prediction models, the AI
+assistant, and the dashboard remain future work.

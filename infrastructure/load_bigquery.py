@@ -15,11 +15,12 @@ import tempfile
 import uuid
 
 
-def command(arguments, *, parse_json=False):
-    result = subprocess.run(arguments, text=True, capture_output=True)
+def command(arguments, *, parse_json=False, input_text=None):
+    result = subprocess.run(arguments, text=True, capture_output=True, input=input_text)
     if result.returncode:
         # These commands contain project/table identifiers, not auth credentials.
-        raise RuntimeError(f"{arguments[0]} command failed: {result.stderr.strip()} {result.stdout.strip()}")
+        details = "\n".join(line for line in result.stderr.splitlines() if line.strip() and not line.strip().startswith("Waiting on "))
+        raise RuntimeError(f"{arguments[0]} command failed: {details} {result.stdout.strip()}")
     return json.loads(result.stdout) if parse_json else result.stdout
 
 
