@@ -12,6 +12,14 @@
 
 ## Next milestones
 
+Cloud foundation progress:
+
+- [x] Create a dedicated Google Cloud development project.
+- [x] Configure a project-scoped monthly alert budget.
+- [x] Create a private Cloud Storage bucket and upload the nine source CSV files with a checksum manifest.
+- [x] Create co-located raw, staging, and analytics BigQuery datasets.
+- [ ] Load and validate BigQuery tables, then port staging and analytics models.
+
 1. **Cloud landing and warehouse:** choose a Google Cloud project, configure a raw Cloud Storage landing area, model analytics in BigQuery, and document cost controls.
 2. **Orchestration:** schedule ingestion and transformations with retries, dependency checks, and useful failure reporting.
 3. **Delivery-delay prediction:** define prediction time, build features available then, use chronological train/validation/test splits, and evaluate a baseline before more complex models.
@@ -19,4 +27,4 @@
 5. **Application:** expose analytics and predictions through an API and dashboard.
 6. **Operations:** add deployment automation, monitoring, and operational documentation.
 
-Each milestone should have an implementation branch, tests or recorded validation, and documentation. Cloud deployment, machine learning, the assistant, and the dashboard have not been implemented yet.
+Each milestone should have an implementation branch, tests or recorded validation, and documentation. The cloud storage foundation is provisioned; BigQuery warehouse models, machine learning, the assistant, and the dashboard have not been implemented yet.

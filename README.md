@@ -2,7 +2,9 @@
 
 An e-commerce data and AI platform using the Olist dataset. The current setup loads nine source CSV files into PostgreSQL, builds typed staging tables, and provides order and daily sales analytics.
 
-**Status:** the local data pipeline works. Cloud deployment, prediction models, the AI assistant, and the dashboard are planned in the [roadmap](docs/ROADMAP.md).
+**Status:** the local data pipeline works, and the Google Cloud storage foundation is provisioned. BigQuery table loading, prediction models, the AI assistant, and the dashboard remain in the [roadmap](docs/ROADMAP.md).
+
+Google Cloud setup begins with the [cloud foundation guide](infrastructure/README.md).
 
 ```mermaid
 flowchart LR

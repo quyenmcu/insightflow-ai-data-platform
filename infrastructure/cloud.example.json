@@ -1,0 +1,12 @@
+{
+  "projectId": "YOUR_PROJECT_ID",
+  "projectNumber": "YOUR_PROJECT_NUMBER",
+  "location": "us-central1",
+  "billingAccountId": "YOUR_BILLING_ACCOUNT_ID",
+  "budgetId": "YOUR_BUDGET_ID",
+  "budgetAmount": 150,
+  "budgetCurrency": "TWD",
+  "rawBucket": "YOUR_PROJECT_ID-raw",
+  "rawDataDirectory": "data/raw",
+  "sourcePrefix": "olist/YOUR_DATASET_SHA256/"
+}

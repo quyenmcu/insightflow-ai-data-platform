@@ -6,3 +6,8 @@
 data
 __pycache__
 .pytest_cache
+.gcloud
+.cloud.local.json
+.terraform
+*.tfstate
+*.tfstate.*
