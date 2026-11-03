@@ -1,5 +1,6 @@
 """Read a bounded BigQuery snapshot after a verified build; export aggregates only."""
 
+import argparse
 from datetime import datetime, timezone
 from decimal import Decimal
 import json
@@ -29,7 +30,7 @@ def snapshot_sql(project):
       SUM(late_delivery_count) AS late, SUM(items_gmv_brl) AS gmv_brl FROM `{project}.analytics.daily_sales`)
     SELECT TO_JSON_STRING(STRUCT(
       (SELECT AS STRUCT * FROM audit) AS audit,
-      ARRAY(SELECT AS STRUCT * FROM grouped ORDER BY month,state) AS rows,
+      ARRAY(SELECT AS STRUCT * FROM grouped ORDER BY month,state) AS `rows`,
       (SELECT AS STRUCT * FROM totals) AS totals,
       (SELECT AS STRUCT * FROM daily) AS daily)) AS payload"""
 
@@ -40,7 +41,7 @@ def normalize(record, *, grouped=False):
     return ({"month": record["month"], "state": record["state"]} if grouped else {}) | counts | amounts
 
 
-def export(settings, contract, baseline, build_id, output, *, maximum_bytes_billed=1073741824, expected_digest=None):
+def preflight(settings, maximum_bytes_billed=1073741824):
     if not 0 < maximum_bytes_billed <= 1073741824:
         raise ValueError("Dashboard export cap must be between 1 byte and 1 GiB")
     query = snapshot_sql(settings["projectId"])
@@ -50,6 +51,14 @@ def export(settings, contract, baseline, build_id, output, *, maximum_bytes_bill
     estimated = int(dry["statistics"]["totalBytesProcessed"])
     if estimated > maximum_bytes_billed:
         raise ValueError("Dashboard export exceeds billed-byte cap")
+    return {"estimatedBytes": estimated, "maximumBytesBilled": maximum_bytes_billed}
+
+
+def export(settings, contract, baseline, build_id, output, *, maximum_bytes_billed=1073741824, expected_digest=None):
+    estimated = preflight(settings, maximum_bytes_billed)["estimatedBytes"]
+    query = snapshot_sql(settings["projectId"])
+    common = ["bq", f"--project_id={settings['projectId']}", f"--location={settings['location']}", "--format=json"]
+    args = ["query", "--use_legacy_sql=false", f"--maximum_bytes_billed={maximum_bytes_billed}"]
     result = command(common + args + ["--max_rows=1"], input_text=query, parse_json=True)
     if len(result) != 1:
         raise ValueError("Expected one dashboard export payload")
@@ -79,3 +88,11 @@ def export(settings, contract, baseline, build_id, output, *, maximum_bytes_bill
     temporary.replace(output)
     return {"buildId": build_id, "groups": len(rows), "aggregateSha256": snapshot["aggregate_sha256"],
             "estimatedBytes": estimated, "maximumBytesBilled": maximum_bytes_billed, "output": str(output)}
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Dry-run the dashboard read query without changing tables or exporting data.")
+    parser.add_argument("--dry-run", action="store_true", required=True)
+    parser.add_argument("--config", type=Path, default=Path(__file__).with_name("cloud_pipeline.json"))
+    args = parser.parse_args()
+    print(json.dumps(preflight(json.loads(args.config.read_text(encoding="utf-8-sig"))), indent=2))

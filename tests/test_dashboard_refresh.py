@@ -64,6 +64,12 @@ def test_over_budget_dry_run_does_not_submit_query(monkeypatch, tmp_path):
     assert len(calls) == 1
 
 
+def test_export_sql_quotes_reserved_payload_field():
+    query = exporter.snapshot_sql("project-id")
+    assert "AS `rows`" in query
+    assert "FROM `project-id.analytics.order_summary`" in query
+
+
 def test_pipeline_does_not_export_after_model_failure(monkeypatch, tmp_path):
     monkeypatch.setattr(run_cloud_pipeline, "load_raw", lambda *_: {})
     def failure(*_):

@@ -49,6 +49,9 @@ jobs:
         with:
           version: '591.0.0'
 
+      - name: Dry-run the dashboard export before warehouse work
+        run: python3 -m infrastructure.export_dashboard --dry-run
+
       - name: Load raw data and publish validated analytics
         run: python3 -u -m infrastructure.run_cloud_pipeline --dashboard-output data/processed/dashboard/snapshot.json
 
