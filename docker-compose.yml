@@ -54,6 +54,15 @@ services:
       - ./data/processed/delivery_delay:/app/data/processed/delivery_delay:ro
       - ./data/processed/delivery_delay_models:/app/data/processed/delivery_delay_models
 
+  dashboard:
+    image: python:3.11-slim
+    profiles: ["tools"]
+    command: ["python", "-m", "http.server", "8765", "--bind", "0.0.0.0", "--directory", "/site"]
+    ports:
+      - "127.0.0.1:8765:8765"
+    volumes:
+      - ./dashboard/dist:/site:ro
+
   comparison:
     build: .
     profiles: ["tools"]

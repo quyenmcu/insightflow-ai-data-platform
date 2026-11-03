@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Explore verified historical Olist commerce metrics with InsightFlow.">
+  <title>InsightFlow · Commerce overview</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to analytics</a>
+<aside class="sidebar">
+  <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">ıf</span>InsightFlow<span class="brand-dot">.</span></a>
+  <div class="workspace"><span class="workspace-icon">O</span><div>Olist commerce<small>Historical data workspace</small></div></div>
+  <p class="nav-label">WORKSPACE</p>
+  <nav aria-label="Workspace"><a href="#overview" class="active"><span aria-hidden="true">▦</span> Overview</a><a href="#assistant"><span aria-hidden="true">✧</span> Analytics assistant</a><a href="#definitions"><span aria-hidden="true">≡</span> Metric definitions</a></nav>
+  <div class="sidebar-bottom"><span class="status-dot"></span> Verified warehouse snapshot<p>Built on Olist open data.<br>Historical insights, clearly defined.</p><a href="https://github.com/quyenmcu/insightflow-ai-data-platform" target="_blank" rel="noopener noreferrer">View project ↗</a></div>
+</aside>
+<main id="main">
+  <header><div class="breadcrumb">WORKSPACE <span>/</span> COMMERCE ANALYTICS</div><span class="snapshot-badge"><span class="status-dot"></span> Historical snapshot</span></header>
+  <section id="overview" class="page-heading"><div><p class="eyebrow">YOUR BUSINESS, IN FOCUS</p><h1>Commerce overview</h1><p class="subtitle">A clearer view of sales, orders, and delivery performance.</p></div><button id="download" class="button secondary" disabled><span aria-hidden="true">↓</span> Export selection</button></section>
+  <div class="data-note"><span class="note-symbol" aria-hidden="true">i</span><p><strong>Explore the historical record.</strong> Metrics use purchase dates and BRL. This is a verified snapshot, not a live store feed. <span id="source-period"></span></p></div>
+  <form id="filters" class="filters" aria-label="Filter analytics"><div class="filter-label">View your data</div><label>From month<select id="from" disabled></select></label><span class="range-dash" aria-hidden="true">—</span><label>To month<select id="to" disabled></select></label><label>Customer state<select id="state" disabled><option value="all">All states</option></select></label><button id="reset" type="button" class="text-button">Reset filters</button></form>
+  <p id="error" class="error" role="alert" hidden></p><p id="loading" role="status">Loading verified metrics…</p>
+  <div id="content" hidden>
+  <div class="scope-line"><span id="scope"></span><span id="group-count"></span></div>
+  <section class="kpis" aria-label="Selected performance metrics">
+    <article class="kpi"><div class="kpi-top">Delivered item GMV <span aria-hidden="true">↗</span></div><p id="gmv" class="kpi-value">—</p><p class="kpi-detail">Merchandise value · excludes freight</p></article>
+    <article class="kpi"><div class="kpi-top">Delivered orders <span aria-hidden="true">▣</span></div><p id="delivered" class="kpi-value">—</p><p id="orders-detail" class="kpi-detail"></p></article>
+    <article class="kpi"><div class="kpi-top">Late delivery rate <span aria-hidden="true">◷</span></div><p id="late" class="kpi-value">—</p><p id="late-detail" class="kpi-detail"></p></article>
+    <article class="kpi"><div class="kpi-top">Average order value <span aria-hidden="true">≋</span></div><p id="aov" class="kpi-value">—</p><p class="kpi-detail">Item GMV / delivered orders</p></article>
+  </section>
+  <section class="middle-grid">
+    <article class="panel trend-panel"><div class="panel-heading"><div><h2>Sales over time</h2><p>Delivered item GMV by purchase month</p></div><span class="legend"><i></i> Item GMV</span></div><div id="chart" class="chart"></div><div class="chart-foot"><span id="trend-note"></span><details><summary>View monthly data</summary><div class="table-scroll"><table><caption class="sr-only">Monthly delivered sales</caption><thead><tr><th scope="col">Month</th><th scope="col">Orders</th><th scope="col">Item GMV</th><th scope="col">Late rate</th></tr></thead><tbody id="monthly-table"></tbody></table></div></details></div></article>
+    <article class="panel delivery-panel"><div class="panel-heading"><div><h2>Delivery performance</h2><p>Among labeled delivered orders</p></div></div><div id="donut" class="donut" role="img"><div><strong id="on-time">—</strong><span>on-time deliveries</span></div></div><div class="delivery-legend"><div><i class="green"></i> On time <strong id="on-time-count"></strong></div><div><i class="amber"></i> Late <strong id="late-count"></strong></div></div><p id="missing-note" class="small-note"></p></article>
+  </section>
+  <section class="bottom-grid">
+    <article class="panel states-panel"><div class="panel-heading"><div><h2>Where sales happen</h2><p>Ranked by delivered item GMV</p></div><button id="show-states" class="text-button" type="button">View all states</button></div><div class="table-scroll"><table><caption class="sr-only">Delivered sales by customer state</caption><thead><tr><th scope="col">Customer state</th><th scope="col">Delivered orders</th><th scope="col">Item GMV</th><th scope="col">Share</th></tr></thead><tbody id="states-table"></tbody></table></div></article>
+    <article id="assistant" class="panel assistant-panel"><div class="panel-heading"><div><span class="assistant-eyebrow">✧ INSIGHTFLOW ASSISTANT</span><h2>Ask your data</h2><p>Clear answers, grounded in your selection.</p></div></div><div class="assistant-intro">Start with a question below. I use the same verified metrics as this dashboard.</div><div id="messages" aria-live="polite" aria-relevant="additions"></div><div id="suggestions" class="suggestions"></div><form id="ask-form"><label class="sr-only" for="question">Ask a supported metric question</label><div class="ask-input"><input id="question" maxlength="240" placeholder="Ask about sales or deliveries…" autocomplete="off"><button aria-label="Send question" type="submit">↑</button></div></form><p class="assistant-disclosure">Guided metric answers · no generative model · selection applies</p></article>
+  </section>
+  </div>
+  <section id="definitions" class="panel definitions"><div class="panel-heading"><div><h2>Know what you’re measuring</h2><p>Consistent definitions from warehouse to answer.</p></div><span class="verified-pill">✓ Definitions included</span></div><div class="definition-grid"><div><h3>Item GMV</h3><p>Sum of item prices for delivered orders. Excludes freight. It is not profit, net revenue, or payment receipts.</p></div><div><h3>Late delivery</h3><p>Actual delivery calendar date is after the estimated date. Same-day delivery is on time. Missing dates are excluded from the rate.</p></div><div><h3>Time & location</h3><p>Grouped by purchase calendar month and customer state. Source dates have no documented timezone. Boundary months may be partial.</p></div></div></section>
+  <footer><div><span class="footer-brand">InsightFlow</span> / Commerce intelligence</div><p id="provenance">Snapshot provenance loading…</p><p>Predictions remain experimental and are not used here. <a href="https://github.com/quyenmcu/insightflow-ai-data-platform/blob/main/docs/DASHBOARD.md" target="_blank" rel="noopener noreferrer">Data & methodology ↗</a></p></footer>
+</main>
+<script type="module" src="app.mjs"></script>
+</body>
+</html>

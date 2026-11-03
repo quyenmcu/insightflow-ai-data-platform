@@ -25,8 +25,8 @@ Cloud foundation progress:
 1. **Cloud landing and warehouse:** choose a Google Cloud project, configure a raw Cloud Storage landing area, model analytics in BigQuery, and document cost controls.
 2. **Orchestration:** a weekly workflow now orders tests, ingestion, and publication with failure reports and manual reruns. Advanced orchestration and transient-error retry policies can follow when needed.
 3. **Delivery-delay prediction:** checkout features, chronological splits, and a fixed logistic baseline are implemented. Investigate weak held-out generalization with validation-driven experiments before deployment.
-4. **Business assistant:** ground answers in approved analytics and documented metric definitions; validate generated queries and report supporting data.
-5. **Application:** expose analytics and predictions through an API and dashboard.
+4. **Business assistant:** a guided assistant now answers six approved metric questions from the verified snapshot, with calculations and scope. General language understanding and generated-query validation remain future work.
+5. **Application:** a responsive historical analytics dashboard now includes shared filters, charts, state ranking, and CSV export. Live API integration and deployment-ready predictions remain future work.
 6. **Operations:** add deployment automation, monitoring, and operational documentation.
 
 AI milestone progress:
@@ -40,4 +40,12 @@ AI milestone progress:
 - [x] Compare fixed calendar/nonlinear candidates on historical development folds; retain the reference when neither improves ranking.
 - [ ] Investigate weak temporal generalization using validation-driven experiments and define a fresh final holdout.
 
-Each milestone should have tests or recorded validation and documentation. The scheduled warehouse pipeline and experimental baseline are implemented; predictive improvements, the assistant, and the dashboard remain ahead.
+Application milestone progress:
+
+- [x] Export aggregate-only warehouse metrics with source and reconciliation checks.
+- [x] Build a responsive historical analytics dashboard with filters and CSV export.
+- [x] Answer supported metric questions with scope, definitions, and source evidence.
+- [ ] Connect a bounded authenticated live analytics API when a live use case is defined.
+- [ ] Add and evaluate general natural-language understanding beyond guided questions.
+
+Each milestone should have tests or recorded validation and documentation. The scheduled warehouse pipeline, experimental baseline, and first snapshot dashboard are implemented; live application integration and predictive deployment remain ahead.

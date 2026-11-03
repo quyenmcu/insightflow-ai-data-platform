@@ -35,3 +35,14 @@ jobs:
       - name: Stop test services
         if: always()
         run: docker compose down --volumes --remove-orphans
+
+  dashboard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Check dashboard logic and snapshot
+        run: node --test dashboard/tests/*.test.mjs
