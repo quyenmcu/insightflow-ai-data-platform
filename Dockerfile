@@ -7,5 +7,6 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ingestion ./ingestion
+COPY ml ./ml
 
 CMD ["python", "-m", "ingestion.batch.load_olist"]

@@ -33,5 +33,14 @@ services:
       postgres:
         condition: service_healthy
 
+  features:
+    build: .
+    profiles: ["tools"]
+    command: ["python", "-m", "ml.build_dataset"]
+    volumes:
+      - ./data/raw:/app/data/raw:ro
+      - ./data/processed:/app/data/processed
+      - ./infrastructure:/app/infrastructure:ro
+
 volumes:
   postgres_data:

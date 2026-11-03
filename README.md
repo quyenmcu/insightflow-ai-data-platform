@@ -6,6 +6,8 @@ An e-commerce data and AI platform using the Olist dataset. The current setup lo
 
 The [scheduled cloud pipeline](docs/SCHEDULING.md) runs Mondays at 08:00 Taiwan time, with manual runs available in GitHub Actions.
 
+The first AI milestone is the [checkout-time delivery prediction dataset](docs/DELIVERY_PREDICTION.md), with candidate features and chronological splits that respect label availability. Baseline model training is next.
+
 Google Cloud setup begins with the [cloud foundation guide](infrastructure/README.md).
 
 ```mermaid

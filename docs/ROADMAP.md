@@ -24,9 +24,17 @@ Cloud foundation progress:
 
 1. **Cloud landing and warehouse:** choose a Google Cloud project, configure a raw Cloud Storage landing area, model analytics in BigQuery, and document cost controls.
 2. **Orchestration:** a weekly workflow now orders tests, ingestion, and publication with failure reports and manual reruns. Advanced orchestration and transient-error retry policies can follow when needed.
-3. **Delivery-delay prediction:** define prediction time, build features available then, use chronological train/validation/test splits, and evaluate a baseline before more complex models.
+3. **Delivery-delay prediction:** checkout-time candidate features and label-mature chronological splits are implemented. Train and evaluate a baseline next, before more complex models.
 4. **Business assistant:** ground answers in approved analytics and documented metric definitions; validate generated queries and report supporting data.
 5. **Application:** expose analytics and predictions through an API and dashboard.
 6. **Operations:** add deployment automation, monitoring, and operational documentation.
 
-Each milestone should have an implementation branch, tests or recorded validation, and documentation. The scheduled cloud pipeline and warehouse models are implemented; machine learning, the assistant, and the dashboard remain ahead.
+AI milestone progress:
+
+- [x] Define the checkout prediction point, delivered-order target, and availability assumptions.
+- [x] Build 21 candidate features without outcome fields.
+- [x] Create chronological splits with label-maturity exclusions and source/code provenance.
+- [ ] Fit preprocessing on training data and train a logistic regression baseline.
+- [ ] Evaluate validation and test performance, then save the model and model card.
+
+Each milestone should have tests or recorded validation and documentation. The scheduled cloud pipeline and warehouse models are implemented; model training, the assistant, and the dashboard remain ahead.
