@@ -6,7 +6,7 @@ An e-commerce data and AI platform using the Olist dataset. The current setup lo
 
 The [scheduled cloud pipeline](docs/SCHEDULING.md) runs Mondays at 08:00 Taiwan time, with manual runs available in GitHub Actions.
 
-The [checkout-time delivery prediction dataset](docs/DELIVERY_PREDICTION.md) has chronological splits that respect label availability. The first [logistic baseline](docs/BASELINE_MODEL.md) is trained and versioned; its weak held-out performance is documented and it is not deployed.
+The [checkout-time delivery prediction dataset](docs/DELIVERY_PREDICTION.md) has chronological splits that respect label availability. The first [logistic baseline](docs/BASELINE_MODEL.md) is trained and versioned; its weak held-out performance is documented and it is not deployed. A [validation error analysis](docs/BASELINE_ERROR_ANALYSIS.md) records calibration gaps, segment errors, and hypotheses for improvement with the original model unchanged.
 
 Google Cloud setup begins with the [cloud foundation guide](infrastructure/README.md).
 

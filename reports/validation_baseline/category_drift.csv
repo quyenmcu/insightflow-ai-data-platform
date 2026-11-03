@@ -1,0 +1,4 @@
+feature,total_variation_distance,unseen_validation_fraction,train_categories,validation_categories
+customer_state,0.0439850364791872,0.0,27,27
+primary_seller_state,0.05779106015537701,0.002775431398576083,20,21
+primary_product_category,0.13269438838950534,0.0,73,69
