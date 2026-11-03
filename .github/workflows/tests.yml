@@ -10,6 +10,17 @@ permissions:
   contents: read
 
 jobs:
+  streaming:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Verify independent streaming replay and recovery
+        run: python -m unittest discover -s streaming/tests -v
+
   integration:
     runs-on: ubuntu-latest
     timeout-minutes: 15

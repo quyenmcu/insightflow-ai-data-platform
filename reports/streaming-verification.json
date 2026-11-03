@@ -1,0 +1,17 @@
+{
+  "verified_at": "2026-11-03",
+  "mode": "local simulated Olist purchase replay",
+  "automated_checks": {"passed": 5, "failed": 0, "runtimes": ["local Python 3.12", "Docker Python 3.11"]},
+  "concurrent_demo": {
+    "first_replay": {"accepted": 100, "duplicates": 0},
+    "second_replay": {"accepted": 0, "duplicates": 100},
+    "final_queue": {"pending": 0, "processed": 100, "rejected": 0},
+    "totals": {"orders": 100, "item_value_cents": 1525891},
+    "currency": "BRL",
+    "metric": "all-status purchase item value, excludes freight; not delivered GMV",
+    "storage": "ignored local SQLite inbox and daily metrics"
+  },
+  "batch_snapshot_file_sha256_before_and_after": "6356d1b323df55b5185f951a8a39829b03313d9b92fd0d44c4b1f5000de0f850",
+  "isolation": {"batch_code_changed": false, "batch_compose_changed": false, "weekly_schedule_changed": false, "cloud_resources_provisioned": false, "openai_calls": 0, "hosted_dashboard_changed": false},
+  "limitations": ["Historical simulation, not a live source", "Single-machine SQLite queue, not a distributed broker", "No dashboard or cloud-stream integration"]
+}

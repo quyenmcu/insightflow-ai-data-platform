@@ -1,0 +1,17 @@
+services:
+  consumer:
+    image: python:3.11-slim
+    working_dir: /app
+    command: ["python", "-m", "streaming", "consume", "--watch"]
+    volumes:
+      - .:/app/streaming:ro
+      - ../data/processed/streaming:/app/data/processed/streaming
+    stop_grace_period: 10s
+  replay:
+    image: python:3.11-slim
+    working_dir: /app
+    entrypoint: ["python", "-m", "streaming", "replay"]
+    volumes:
+      - .:/app/streaming:ro
+      - ../data/raw:/app/data/raw:ro
+      - ../data/processed/streaming:/app/data/processed/streaming

@@ -12,6 +12,9 @@
 
 ## Next milestones
 
+- [x] Add an independent local streaming replay, durable inbox, deduplicating consumer, and event-day metrics with recovery tests.
+- [ ] Select a real event source and evaluate a cloud broker/consumer within an agreed budget before cloud streaming deployment.
+
 Cloud foundation progress:
 
 - [x] Create a dedicated Google Cloud development project.

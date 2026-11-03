@@ -12,6 +12,8 @@ The [checkout-time delivery prediction dataset](docs/DELIVERY_PREDICTION.md) has
 
 Google Cloud setup begins with the [cloud foundation guide](infrastructure/README.md).
 
+A separate [local streaming demo](docs/STREAMING.md) replays historical Olist purchases through a durable queue and consumer into its own SQLite metrics. It uses no cloud services or AI credits and leaves the weekly batch pipeline intact.
+
 ```mermaid
 flowchart LR
     A[Olist CSV files] --> B[Python validation and COPY]
