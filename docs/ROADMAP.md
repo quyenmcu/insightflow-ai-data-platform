@@ -46,6 +46,7 @@ Application milestone progress:
 - [x] Build a responsive historical analytics dashboard with filters and CSV export.
 - [x] Answer supported metric questions with scope, definitions, and source evidence.
 - [x] Connect weekly warehouse builds to validated aggregate publication and dashboard loading, with fallback and freshness notices.
+- [x] Prepare and test read-only calculation tools for conversational comparisons, rankings, trends, and definitions.
 - [ ] Connect a bounded authenticated live analytics API when a live use case is defined.
 - [ ] Add and evaluate general natural-language understanding beyond guided questions.
 

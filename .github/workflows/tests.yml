@@ -45,4 +45,4 @@ jobs:
         with:
           node-version: '22'
       - name: Check dashboard logic and snapshot
-        run: node --test dashboard/tests/*.test.mjs
+        run: node --test dashboard/tests/*.test.mjs agent/tests/*.test.mjs
