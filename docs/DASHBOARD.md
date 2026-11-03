@@ -55,7 +55,7 @@ node --test dashboard/tests/*.test.mjs
 docker compose --profile tools stop dashboard
 ```
 
-The static server is bound to local loopback; it serves only `dashboard/dist`. No Node dependencies or framework build are needed. Python tests also exercise the exporter against disposable PostgreSQL views, source-provenance mismatch, stale builds, exact cents, and invalid counts. The expanded suites cover cloud export caps, aggregate parity, publication/readback, invalid-feed fallback, and freshness notices: 61 Python tests and 18 dashboard tests passed locally.
+The static server is bound to local loopback; it serves only `dashboard/dist`. No Node dependencies or framework build are needed. Python tests also exercise the exporter against disposable PostgreSQL views, source-provenance mismatch, stale builds, exact cents, and invalid counts. The expanded suites cover cloud export caps, aggregate parity, publication/readback, invalid-feed fallback, and freshness notices: 62 Python tests and 18 dashboard tests passed in GitHub CI.
 
 Browser checks covered state/month filters, matching assistant/KPI totals, rejected causal questions, invalid-range recovery, reset, and a CSV download containing the selected RJ groups. A narrow viewport DOM check found no horizontal page overflow. [Dashboard preview](../reports/dashboard/overview.png).
 
@@ -74,6 +74,12 @@ If remote data is unavailable, corrupt, or invalid, the dashboard loads the bund
 The browser sends no questions to an external model or warehouse; questions are processed locally with an allowlisted metric resolver. It makes an unauthenticated read of public aggregate data from GitHub. No cloud credentials or GitHub tokens are included in browser code. Pipeline export adds one BigQuery dry run and one bounded read query (maximum 1 GiB billed bytes); opening the dashboard runs no BigQuery jobs or model API calls. Refreshed export timestamps do not imply new commercial activity: the fixed source still contains 2016–2018 records.
 
 See [scheduling and failure recovery](SCHEDULING.md) for the unattended writer, job identity, artifact handoff, and readback verification. The original PostgreSQL bundled snapshot remains the reference: BigQuery's complete month/state aggregate hash must match it before publication.
+
+### End-to-end verification
+
+[Cloud run 41603218894](https://github.com/quyenmcu/insightflow-ai-data-platform/actions/runs/41603218894) completed successfully on November 3, 2026. It built warehouse version `37bc35b1633e44be89efc269aaf21501`, verified all 565 aggregate groups, and published data commit `7172ec9b1b48d9e886f4d0fb8f61ee0ec5cb9201` with byte-for-byte readback. The browser then loaded that exact build ID through the public data feed and displayed the expected GMV. The export dry run estimated 7,180,047 processed bytes under its 1 GiB cap. An early query dry run now catches SQL syntax and budget errors before warehouse rebuilding.
+
+The refresh-capable Site publication uses source commit `c148e3ac33953176443a276980c482d7d1c54b64`, saved version `appgprj_6ae9626c01988191828dd9189abe089f~appgver_c3b1062c01cc81919fd3f755a03ba2b6`. Its deployment succeeded. The hosted access gate requires ChatGPT sign-in in the verification browser session; functional feed and fallback checks were performed on the identical local assets. See the [verification record](../reports/dashboard/refresh-verification.json) and [refresh preview](../reports/dashboard/weekly-refresh.png).
 
 ## Remaining application work
 

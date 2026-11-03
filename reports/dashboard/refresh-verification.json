@@ -1,0 +1,44 @@
+{
+  "verified_at": "2026-11-03T08:32:05.411342+00:00",
+  "workflow_run": "https://github.com/quyenmcu/insightflow-ai-data-platform/actions/runs/41603218894",
+  "code_commit": "4d39b2a0352e952b0de9b8ba8d3c03f74244fae3",
+  "warehouse_build": "37bc35b1633e44be89efc269aaf21501",
+  "metrics": {
+    "delivered_items_gmv_brl": "13221498.11",
+    "delivered_order_count": "96478",
+    "items_value_brl": "13591643.7",
+    "labeled_deliveries": "96470",
+    "late_deliveries": "6534",
+    "order_count": "99441",
+    "payment_value_brl": "16008872.12"
+  },
+  "dashboard_export": {
+    "buildId": "37bc35b1633e44be89efc269aaf21501",
+    "groups": 565,
+    "aggregateSha256": "284f90b206f0041c5dc7f5420dfd7afed603580d96f354e9271de70a2cabb3c4",
+    "estimatedBytes": 7180047,
+    "maximumBytesBilled": 1073741824,
+    "output": "data/processed/dashboard/snapshot.json"
+  },
+  "publication": {
+    "branch": "codex/dashboard-data",
+    "commit": "7172ec9b1b48d9e886f4d0fb8f61ee0ec5cb9201",
+    "aggregateSha256": "284f90b206f0041c5dc7f5420dfd7afed603580d96f354e9271de70a2cabb3c4",
+    "fileSha256": "dc20028bd693fa555ef2f0a7b80a3c369f39b99e155b625a391d3b2702adcb7a",
+    "readbackVerified": true,
+    "url": "https://raw.githubusercontent.com/quyenmcu/insightflow-ai-data-platform/refs/heads/codex/dashboard-data/snapshot.json"
+  },
+  "site": {
+    "url": "https://insightflow-analytics-quyenmcu.funnyvale2.chatgpt.site",
+    "version_id": "appgprj_6ae9626c01988191828dd9189abe089f~appgver_c3b1062c01cc81919fd3f755a03ba2b6",
+    "source_commit": "c148e3ac33953176443a276980c482d7d1c54b64"
+  },
+  "checks": {
+    "python_tests": 62,
+    "dashboard_tests": 18,
+    "local_fallback_verified": true,
+    "browser_remote_feed_verified": true,
+    "browser_build_matches_pipeline": true,
+    "hosted_access": "ChatGPT sign-in required in this browser session"
+  }
+}
