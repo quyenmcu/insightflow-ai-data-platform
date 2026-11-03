@@ -47,7 +47,8 @@ Application milestone progress:
 - [x] Answer supported metric questions with scope, definitions, and source evidence.
 - [x] Connect weekly warehouse builds to validated aggregate publication and dashboard loading, with fallback and freshness notices.
 - [x] Prepare and test read-only calculation tools for conversational comparisons, rankings, trends, and definitions.
-- [ ] Connect a bounded authenticated live analytics API when a live use case is defined.
-- [ ] Add and evaluate general natural-language understanding beyond guided questions.
+- [x] Implement a bounded authenticated analytics chat API over verified historical aggregates.
+- [x] Add and evaluate natural-language comparisons and follow-up questions beyond guided questions.
+- [ ] Replace the owner's temporary 24-hour API key for durable hosted availability.
 
-Each milestone should have tests or recorded validation and documentation. The scheduled warehouse pipeline, experimental baseline, and first snapshot dashboard are implemented; live application integration and predictive deployment remain ahead.
+Each milestone should have tests or recorded validation and documentation. See the analytics-agent guide for model-call limits, accounting, evidence, and temporary credential lifetime. Predictive deployment remains ahead.

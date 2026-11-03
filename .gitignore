@@ -14,3 +14,13 @@ data/processed/*
 .terraform/
 gha-creds-*.json
 infrastructure/.dataset-access-*.json
+agent/node_modules/
+node_modules/
+/dist/
+.sites-runtime/
+.wrangler/
+.vinext/
+.next/
+/public/
+*.tsbuildinfo
+.dev.vars*

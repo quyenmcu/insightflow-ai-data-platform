@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-03",
+  "model": "gpt-6-luna",
+  "automated_checks": {"passed": 35, "failed": 0},
+  "live_model_cases": {
+    "q1_2018_sp_rj_delivered_item_gmv": "passed; SP BRL 1053474.92, RJ BRL 340848.86",
+    "february_followup": "passed; SP BRL 307829.15, RJ BRL 110517.97",
+    "invent_2026_profit": "passed; unsupported, no successful tool evidence"
+  },
+  "compiled_worker": {
+    "dashboard_http_status": 200,
+    "unauthenticated_chat_http_status": 401,
+    "foreign_origin_http_status": 403,
+    "invalid_request_http_status": 400,
+    "oversized_request_http_status": 413,
+    "signed_in_health_configured": true,
+    "live_chat_http_status": 200,
+    "live_chat_expected_amounts": true,
+    "persistent_usage_after_call": {"dailyUsed": 1, "monthlyUsed": 1},
+    "identity_note": "Local compiled Worker test supplied a simulated visitor header. Production identity is supplied by Sites dispatch."
+  },
+  "deployment": {
+    "site_source_commit": "ccad6e3251ba31630a03ca209ca6f7f8d55358b8",
+    "version_id": "appgprj_6ae9626c01988191828dd9189abe089f~appgver_9edd2123f00c81919b09f5eb9fd461fa",
+    "deployment_id": "appgdep_6ae9b196170081919ca4f0e422006322",
+    "status": "succeeded",
+    "environment_revision": 1,
+    "access": "owner-private, unchanged",
+    "url": "https://insightflow-analytics-quyenmcu.funnyvale2.chatgpt.site"
+  },
+  "artifact_scan": {"files": 71, "local_api_key_matches": 0, "environment_files": 0},
+  "limits": {"requests_per_utc_day": 10, "requests_per_utc_month": 100, "tool_calls_per_request": 2, "agent_turns": 3},
+  "verification_limits": [
+    "Browser webview failed to attach; this update has no new visual screenshot.",
+    "Hosted visitor chat was not exercised through ChatGPT sign-in in this session.",
+    "The selected API key expires after 24 hours; funding does not extend its lifetime."
+  ]
+}

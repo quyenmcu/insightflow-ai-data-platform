@@ -1,5 +1,6 @@
 import {fields,sum,money,number,percent,selectRows,summarize,group,questions,answerQuestion,csvReport} from './metrics.mjs';
 import {loadSnapshot,refreshNotice} from './feed.mjs';
+import './agent-client.mjs';
 
 const $ = id => document.getElementById(id);
 let snapshot, selected = [], allStates = false;

@@ -13,3 +13,12 @@ __pycache__
 *.tfstate.*
 gha-creds-*.json
 infrastructure/.dataset-access-*.json
+agent/node_modules
+node_modules
+dist
+.sites-runtime
+.wrangler
+.vinext
+.next
+public
+.dev.vars*

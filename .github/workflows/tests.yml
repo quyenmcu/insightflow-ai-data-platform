@@ -44,5 +44,11 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
+      - name: Install pinned package manager
+        run: npm install --global pnpm@11.25.0
+      - name: Install locked app dependencies
+        run: pnpm install --frozen-lockfile
       - name: Check dashboard logic and snapshot
         run: node --test dashboard/tests/*.test.mjs agent/tests/*.test.mjs
+      - name: Build the hosted application
+        run: pnpm build

@@ -2,7 +2,7 @@
 
 An e-commerce data and AI platform using the Olist dataset. The current setup loads nine source CSV files into PostgreSQL, builds typed staging tables, and provides order and daily sales analytics.
 
-**Status:** the data pipelines and weekly cloud schedule work, an experimental delivery-delay baseline is trained, and a [commerce dashboard with a guided analytics assistant](docs/DASHBOARD.md) explores verified historical aggregates. Live API integration, a generative assistant, and predictive deployment remain in the [roadmap](docs/ROADMAP.md).
+**Status:** the data pipelines and weekly cloud schedule work, an experimental delivery-delay baseline is trained, and the [commerce dashboard](docs/DASHBOARD.md) explores verified historical aggregates. A bounded [AI analytics chat](docs/ANALYTICS_AGENT.md) adds natural-language comparisons, trends, and follow-up questions using approved read-only calculations. Predictive deployment remains in the [roadmap](docs/ROADMAP.md).
 
 Open [InsightFlow Analytics](https://insightflow-analytics-quyenmcu.funnyvale2.chatgpt.site) (owner-private hosted dashboard).
 
