@@ -1,0 +1,211 @@
+{
+  "model_version": 1,
+  "run_id": "20261103T033356Z_3c721f9c",
+  "dataset_run_id": "20261103T032101Z_553ed0bd",
+  "source_fingerprint": "09b5148b3a846d400c6c303505b23439cc111b07321abcf203c84894db512afa",
+  "training_code_sha256": "6da1951e267f1527f0c3f526367399a8e17268a9b4b09172598b3c1c6f758279",
+  "dataset_manifest_sha256": "75c94031f3f13dd6a7aa858c17d72e39c408ce7165ed7c7409abe0fe4e61fa66",
+  "input_sha256": {
+    "train": "55a30dd73751d7697b244a6bf7c2179c186f56c51582fa904fa103c7e9d79a9d",
+    "validation": "fd136d5c9d240b3a92e87bc491d15c63231b9392615793ccdf6ab63031e20c76",
+    "test": "149915b610faf0ed8363cd2057c1fe21cce6f8a9ab85de48b4ef41b8938fa3a2"
+  },
+  "feature_columns": [
+    "purchase_month",
+    "purchase_weekday",
+    "purchase_hour",
+    "item_count",
+    "unique_product_count",
+    "seller_count",
+    "seller_state_count",
+    "category_count",
+    "items_value_brl",
+    "freight_value_brl",
+    "freight_share",
+    "total_weight_g",
+    "mean_volume_cm3",
+    "longest_side_cm",
+    "weight_missing_fraction",
+    "dimensions_missing_fraction",
+    "interstate_item_fraction",
+    "state_missing_fraction",
+    "customer_state",
+    "primary_seller_state",
+    "primary_product_category"
+  ],
+  "threshold": 0.03700299504351776,
+  "threshold_objective": "maximum validation F1; higher threshold breaks ties",
+  "validation_f1_at_selection": 0.2986564299424184,
+  "parameters": {
+    "C": 1.0,
+    "solver": "lbfgs",
+    "max_iter": 2000,
+    "class_weight": null,
+    "random_state": 42
+  },
+  "training_rows": 41528,
+  "expanded_feature_count": 141,
+  "solver_iterations": [
+    61
+  ],
+  "evaluation": {
+    "validation": {
+      "selected_threshold": {
+        "rows": 24861,
+        "positive_orders": 2727,
+        "prevalence": 0.10968987570894172,
+        "average_precision": 0.19979251374041457,
+        "roc_auc": 0.6591256479643326,
+        "brier_score": 0.10271571188776923,
+        "threshold": 0.03700299504351776,
+        "precision": 0.22936320754716982,
+        "recall": 0.42794279427942794,
+        "f1": 0.2986564299424184,
+        "accuracy": 0.7795342102087607,
+        "predicted_late_orders": 5088,
+        "confusion_matrix": [
+          [
+            18213,
+            3921
+          ],
+          [
+            1560,
+            1167
+          ]
+        ]
+      },
+      "default_threshold": {
+        "rows": 24861,
+        "positive_orders": 2727,
+        "prevalence": 0.10968987570894172,
+        "average_precision": 0.19979251374041457,
+        "roc_auc": 0.6591256479643326,
+        "brier_score": 0.10271571188776923,
+        "threshold": 0.5,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "accuracy": 0.8903101242910583,
+        "predicted_late_orders": 0,
+        "confusion_matrix": [
+          [
+            22134,
+            0
+          ],
+          [
+            2727,
+            0
+          ]
+        ]
+      },
+      "training_prior_dummy": {
+        "rows": 24861,
+        "positive_orders": 2727,
+        "prevalence": 0.10968987570894172,
+        "average_precision": 0.10968987570894172,
+        "roc_auc": 0.5,
+        "brier_score": 0.10116476714734952,
+        "threshold": 0.5,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "accuracy": 0.8903101242910583,
+        "predicted_late_orders": 0,
+        "confusion_matrix": [
+          [
+            22134,
+            0
+          ],
+          [
+            2727,
+            0
+          ]
+        ]
+      }
+    },
+    "test": {
+      "selected_threshold": {
+        "rows": 25352,
+        "positive_orders": 1115,
+        "prevalence": 0.043980751025560115,
+        "average_precision": 0.052772201531224916,
+        "roc_auc": 0.5590993535251942,
+        "brier_score": 0.042422260427038096,
+        "threshold": 0.03700299504351776,
+        "precision": 0.054604985213350235,
+        "recall": 0.46367713004484307,
+        "f1": 0.09770386468865161,
+        "accuracy": 0.6233433259703376,
+        "predicted_late_orders": 9468,
+        "confusion_matrix": [
+          [
+            15286,
+            8951
+          ],
+          [
+            598,
+            517
+          ]
+        ]
+      },
+      "default_threshold": {
+        "rows": 25352,
+        "positive_orders": 1115,
+        "prevalence": 0.043980751025560115,
+        "average_precision": 0.052772201531224916,
+        "roc_auc": 0.5590993535251942,
+        "brier_score": 0.042422260427038096,
+        "threshold": 0.5,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "accuracy": 0.9560192489744399,
+        "predicted_late_orders": 0,
+        "confusion_matrix": [
+          [
+            24237,
+            0
+          ],
+          [
+            1115,
+            0
+          ]
+        ]
+      },
+      "training_prior_dummy": {
+        "rows": 25352,
+        "positive_orders": 1115,
+        "prevalence": 0.043980751025560115,
+        "average_precision": 0.043980751025560115,
+        "roc_auc": 0.5,
+        "brier_score": 0.04208858049789047,
+        "threshold": 0.5,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "accuracy": 0.9560192489744399,
+        "predicted_late_orders": 0,
+        "confusion_matrix": [
+          [
+            24237,
+            0
+          ],
+          [
+            1115,
+            0
+          ]
+        ]
+      }
+    }
+  },
+  "versions": {
+    "python": "3.11.18",
+    "scikit-learn": "1.9.1",
+    "pandas": "2.3.3",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "joblib": "1.6.0"
+  },
+  "model_sha256": "9edddd1f80994e41dce50be8a660ecdfa2359cf332dadd323796cf9a8f2de503",
+  "roundtrip_predictions_match": true
+}

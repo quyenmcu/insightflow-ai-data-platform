@@ -42,5 +42,17 @@ services:
       - ./data/processed:/app/data/processed
       - ./infrastructure:/app/infrastructure:ro
 
+  training:
+    build: .
+    profiles: ["tools"]
+    command: ["python", "-m", "ml.train_baseline"]
+    environment:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    volumes:
+      - ./data/processed/delivery_delay:/app/data/processed/delivery_delay:ro
+      - ./data/processed/delivery_delay_models:/app/data/processed/delivery_delay_models
+
 volumes:
   postgres_data:

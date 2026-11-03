@@ -2,11 +2,11 @@
 
 An e-commerce data and AI platform using the Olist dataset. The current setup loads nine source CSV files into PostgreSQL, builds typed staging tables, and provides order and daily sales analytics.
 
-**Status:** the local and BigQuery data pipelines include raw ingestion, typed staging, and validated analytics models. The cloud pipeline is scheduled weekly with keyless GitHub authentication. Prediction models, the AI assistant, and the dashboard remain in the [roadmap](docs/ROADMAP.md).
+**Status:** the data pipelines and weekly cloud schedule work, and an experimental delivery-delay baseline is trained. Predictive improvements, the AI assistant, and the dashboard remain in the [roadmap](docs/ROADMAP.md).
 
 The [scheduled cloud pipeline](docs/SCHEDULING.md) runs Mondays at 08:00 Taiwan time, with manual runs available in GitHub Actions.
 
-The first AI milestone is the [checkout-time delivery prediction dataset](docs/DELIVERY_PREDICTION.md), with candidate features and chronological splits that respect label availability. Baseline model training is next.
+The [checkout-time delivery prediction dataset](docs/DELIVERY_PREDICTION.md) has chronological splits that respect label availability. The first [logistic baseline](docs/BASELINE_MODEL.md) is trained and versioned; its weak held-out performance is documented and it is not deployed.
 
 Google Cloud setup begins with the [cloud foundation guide](infrastructure/README.md).
 

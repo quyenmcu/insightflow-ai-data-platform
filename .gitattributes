@@ -2,5 +2,6 @@
 *.png binary
 *.jpg binary
 *.zip binary
+*.joblib binary
 # The uploaded manifest is verified byte-for-byte; preserve its line endings.
 infrastructure/source_manifest.json -text whitespace=cr-at-eol

@@ -126,4 +126,4 @@ allowlists, finite observed numeric features, and purchase/label timestamp
 boundaries. Missing catalogue attributes remain for training-only preprocessing.
 The different class rates show a time-period shift; baseline evaluation should
 include class prevalence and PR-AUC rather than relying on accuracy alone.
-No estimator has been fitted or evaluated yet.
+The first [logistic baseline and model card](BASELINE_MODEL.md) are now available.
