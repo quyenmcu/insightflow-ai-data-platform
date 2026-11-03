@@ -2,43 +2,11 @@
 
 import argparse
 from datetime import datetime, timezone
-from decimal import Decimal
-import hashlib
 import json
 from pathlib import Path
 
 from ingestion.batch.load_olist import connect
-
-
-FIELDS = ("orders", "delivered", "labeled", "late", "gmv_cents", "freight_cents", "payments_cents")
-
-
-def cents(value):
-    amount = Decimal(value) * 100
-    if amount != amount.to_integral_value():
-        raise ValueError("Warehouse monetary total has fractional cents")
-    return int(amount)
-
-
-def validate_snapshot(snapshot, expected=None):
-    rows = snapshot["rows"]
-    if not rows or len({(r["month"], r["state"]) for r in rows}) != len(rows):
-        raise ValueError("Snapshot needs unique nonempty month/state groups")
-    for row in rows:
-        if any(not isinstance(row[field], int) or row[field] < 0 for field in FIELDS):
-            raise ValueError("Snapshot values must be nonnegative integers")
-        if not row["late"] <= row["labeled"] <= row["delivered"] <= row["orders"]:
-            raise ValueError("Invalid delivery denominators")
-    totals = {field: sum(row[field] for row in rows) for field in FIELDS}
-    if totals != snapshot["totals"]:
-        raise ValueError("Aggregate rows differ from warehouse totals")
-    if expected is not None:
-        checks = {"orders": int(expected["order_count"]), "delivered": int(expected["delivered_order_count"]),
-                  "labeled": int(expected["labeled_deliveries"]), "late": int(expected["late_deliveries"]),
-                  "gmv_cents": cents(expected["delivered_items_gmv_brl"])}
-        if any(totals[key] != value for key, value in checks.items()):
-            raise ValueError("Dashboard snapshot differs from registered PostgreSQL/BigQuery baseline")
-    return totals
+from ingestion.batch.dashboard_contract import FIELDS, aggregate_digest, cents, validate_snapshot
 
 
 def export_snapshot(connection, source_manifest, expected=None):
@@ -95,8 +63,7 @@ def export_snapshot(connection, source_manifest, expected=None):
                 "currency": "BRL", "grain": "purchase calendar month × customer state",
                 "totals": totals, "rows": rows}
     validate_snapshot(snapshot, expected)
-    canonical = json.dumps(rows, sort_keys=True, separators=(",", ":")).encode()
-    snapshot["aggregate_sha256"] = hashlib.sha256(canonical).hexdigest()
+    snapshot["aggregate_sha256"] = aggregate_digest(rows)
     return snapshot
 
 

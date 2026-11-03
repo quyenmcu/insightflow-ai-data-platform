@@ -45,6 +45,7 @@ Application milestone progress:
 - [x] Export aggregate-only warehouse metrics with source and reconciliation checks.
 - [x] Build a responsive historical analytics dashboard with filters and CSV export.
 - [x] Answer supported metric questions with scope, definitions, and source evidence.
+- [x] Connect weekly warehouse builds to validated aggregate publication and dashboard loading, with fallback and freshness notices.
 - [ ] Connect a bounded authenticated live analytics API when a live use case is defined.
 - [ ] Add and evaluate general natural-language understanding beyond guided questions.
 

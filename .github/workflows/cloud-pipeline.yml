@@ -50,7 +50,16 @@ jobs:
           version: '591.0.0'
 
       - name: Load raw data and publish validated analytics
-        run: python3 -u infrastructure/run_cloud_pipeline.py
+        run: python3 -u -m infrastructure.run_cloud_pipeline --dashboard-output data/processed/dashboard/snapshot.json
+
+      - name: Preserve the validated dashboard snapshot
+        uses: actions/upload-artifact@v7
+        with:
+          name: dashboard-snapshot-${{ github.run_id }}
+          path: data/processed/dashboard/snapshot.json
+          if-no-files-found: error
+          overwrite: true
+          retention-days: 14
 
       - name: Preserve the pipeline report
         if: always()
@@ -59,4 +68,32 @@ jobs:
           name: cloud-pipeline-report-${{ github.run_id }}-${{ github.run_attempt }}
           path: data/processed/cloud_pipeline_report.json
           if-no-files-found: warn
+          retention-days: 14
+
+  dashboard:
+    needs: pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Check out trusted publication code
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Retrieve only this run's verified snapshot
+        uses: actions/download-artifact@v8
+        with:
+          name: dashboard-snapshot-${{ github.run_id }}
+          path: data/processed/dashboard
+      - name: Publish snapshot to the data branch and verify readback
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 -m infrastructure.publish_dashboard
+      - name: Preserve dashboard publication evidence
+        uses: actions/upload-artifact@v7
+        with:
+          name: dashboard-publication-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/processed/dashboard/publication.json
+          if-no-files-found: error
           retention-days: 14

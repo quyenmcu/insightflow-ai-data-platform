@@ -6,7 +6,7 @@ An e-commerce data and AI platform using the Olist dataset. The current setup lo
 
 Open [InsightFlow Analytics](https://insightflow-analytics-quyenmcu.funnyvale2.chatgpt.site) (owner-private hosted dashboard).
 
-The [scheduled cloud pipeline](docs/SCHEDULING.md) runs Mondays at 08:00 Taiwan time, with manual runs available in GitHub Actions.
+The [scheduled cloud pipeline](docs/SCHEDULING.md) runs Mondays at 08:00 Taiwan time, with manual runs available in GitHub Actions. Successful runs publish verified dashboard aggregates automatically; reopen or reload the dashboard to load the latest published snapshot.
 
 The [checkout-time delivery prediction dataset](docs/DELIVERY_PREDICTION.md) has chronological splits that respect label availability. The first [logistic baseline](docs/BASELINE_MODEL.md) is trained and versioned; its weak held-out performance is documented and it is not deployed. A [validation error analysis](docs/BASELINE_ERROR_ANALYSIS.md) records calibration gaps and segment errors. A [historical model comparison](docs/MODEL_COMPARISON.md) found no improvement from cyclic month encoding or the fixed gradient-boosted candidate; the original model remains unchanged.
 

@@ -1,6 +1,6 @@
 # Commerce dashboard and guided analytics assistant
 
-The first application explores verified Olist warehouse aggregates and answers six supported metric questions. It uses a historical snapshot rather than live warehouse queries. The assistant is deterministic and explicitly labeled as guided metric answers; it is not a generative model, forecast, or causal analysis system.
+The application explores verified Olist warehouse aggregates and answers six supported metric questions. It loads the latest published warehouse snapshot on page open, with publication after the Monday 08:00 Taiwan pipeline. This is scheduled historical data, rather than per-question live warehouse queries. The assistant is deterministic and explicitly labeled as guided metric answers; it is not a generative model, forecast, or causal analysis system.
 
 Open the owner-private [InsightFlow Analytics dashboard](https://insightflow-analytics-quyenmcu.funnyvale2.chatgpt.site).
 
@@ -51,11 +51,11 @@ This updates `dashboard/dist/snapshot.json` atomically. It does not deploy the w
 ```powershell
 docker compose --profile tools up -d dashboard
 # Open http://localhost:8765
-node --test dashboard/tests/metrics.test.mjs dashboard/tests/snapshot.test.mjs
+node --test dashboard/tests/*.test.mjs
 docker compose --profile tools stop dashboard
 ```
 
-The static server is bound to local loopback; it serves only `dashboard/dist`. No Node dependencies or framework build are needed. Python tests also exercise the exporter against disposable PostgreSQL views, source-provenance mismatch, stale builds, exact cents, and invalid counts. The full tracked Python suite passed 50 tests; the dashboard suite passed 12 tests.
+The static server is bound to local loopback; it serves only `dashboard/dist`. No Node dependencies or framework build are needed. Python tests also exercise the exporter against disposable PostgreSQL views, source-provenance mismatch, stale builds, exact cents, and invalid counts. The expanded suites cover cloud export caps, aggregate parity, publication/readback, invalid-feed fallback, and freshness notices: 61 Python tests and 18 dashboard tests passed locally.
 
 Browser checks covered state/month filters, matching assistant/KPI totals, rejected causal questions, invalid-range recovery, reset, and a CSV download containing the selected RJ groups. A narrow viewport DOM check found no horizontal page overflow. [Dashboard preview](../reports/dashboard/overview.png).
 
@@ -67,7 +67,13 @@ The first publication succeeded from Sites source commit `312706e81e7abd9c1a83d4
 
 Sites publication uses an isolated ignored checkout under `data/processed/insightflow-site`. Copy the current `dist` and hosting manifest there, acquire source access for the existing Site ID, then use the Sites source helper to synchronize and package the exact source before private deployment. Never place credentials in the repository. The archive and temporary source checkout are ignored.
 
-The weekly GitHub workflow refreshes warehouse tables; it **does not automatically refresh or republish this dashboard**. The current fixed Olist snapshot remains unchanged until an explicit re-export and publication. The browser sends no questions to an external model or warehouse; questions are processed locally with an allowlisted metric resolver. No BigQuery jobs or model API calls are issued by this application.
+The weekly GitHub workflow refreshes warehouse tables, exports verified BigQuery aggregates, and publishes `snapshot.json` to the dedicated `codex/dashboard-data` branch after all checks pass. That branch contains only the snapshot and its history. On page open the dashboard reads that public aggregate file, validates its contract, totals, source fingerprint and SHA-256 checksum, and shows its warehouse build/export time. No Site republishing is needed for routine data refreshes. Reopen or reload an already open dashboard to load a newly published snapshot; CDN caching can delay visibility briefly.
+
+If remote data is unavailable, corrupt, or invalid, the dashboard loads the bundled verified snapshot and displays a fallback notice. If the latest valid remote export is more than nine days old, it warns that the pipeline may need attention. If neither snapshot validates, it shows an error instead of metrics. Export failures leave the data branch unchanged. Publication failures before the branch reference update preserve the prior snapshot; failures in readback or report saving after an update are reported by the job and need investigation.
+
+The browser sends no questions to an external model or warehouse; questions are processed locally with an allowlisted metric resolver. It makes an unauthenticated read of public aggregate data from GitHub. No cloud credentials or GitHub tokens are included in browser code. Pipeline export adds one BigQuery dry run and one bounded read query (maximum 1 GiB billed bytes); opening the dashboard runs no BigQuery jobs or model API calls. Refreshed export timestamps do not imply new commercial activity: the fixed source still contains 2016–2018 records.
+
+See [scheduling and failure recovery](SCHEDULING.md) for the unattended writer, job identity, artifact handoff, and readback verification. The original PostgreSQL bundled snapshot remains the reference: BigQuery's complete month/state aggregate hash must match it before publication.
 
 ## Remaining application work
 

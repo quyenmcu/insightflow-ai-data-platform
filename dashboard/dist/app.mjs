@@ -1,4 +1,5 @@
 import {fields,sum,money,number,percent,selectRows,summarize,group,questions,answerQuestion,csvReport} from './metrics.mjs';
+import {loadSnapshot,refreshNotice} from './feed.mjs';
 
 const $ = id => document.getElementById(id);
 let snapshot, selected = [], allStates = false;
@@ -77,8 +78,9 @@ $('ask-form').addEventListener('submit',event=>{event.preventDefault();ask($('qu
 $('download').addEventListener('click',()=>{const blob=new Blob([csvReport(selected)],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`insightflow-${$('from').value}-${$('to').value}-${$('state').value}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 async function init() {
   try {
-    const response=await fetch('./snapshot.json');if(!response.ok)throw new Error('Snapshot request failed.');snapshot=await response.json();
-    if(snapshot.schema_version!==1||!Array.isArray(snapshot.rows)||!snapshot.rows.length||fields.some(k=>sum(snapshot.rows)[k]!==snapshot.totals[k]))throw new Error('Snapshot validation failed.');
+    const loaded=await loadSnapshot();snapshot=loaded.snapshot;
+    $('refresh-status').textContent=refreshNotice(snapshot,loaded.mode);
+    $('refresh-status').classList.toggle('refresh-warning',loaded.mode==='bundled'||Date.now()-Date.parse(snapshot.exported_at)>9*24*60*60*1000);
     const months=[...new Set(snapshot.rows.map(r=>r.month))].sort();
     for(const id of ['from','to'])for(const month of months){const option=document.createElement('option');option.value=month;option.textContent=monthLabel(month);$(id).append(option);}
     for(const state of [...new Set(snapshot.rows.map(r=>r.state))].sort()){const option=document.createElement('option');option.value=state;option.textContent=state;$('state').append(option);}
