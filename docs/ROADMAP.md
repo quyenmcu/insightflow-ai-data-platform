@@ -37,6 +37,7 @@ AI milestone progress:
 - [x] Fit preprocessing on training data and train a logistic regression baseline.
 - [x] Evaluate validation/test performance and save the model and model card.
 - [x] Analyze the frozen baseline on training/validation inputs, publish aggregate diagnostics, and document cohort-selection limits.
+- [x] Compare fixed calendar/nonlinear candidates on historical development folds; retain the reference when neither improves ranking.
 - [ ] Investigate weak temporal generalization using validation-driven experiments and define a fresh final holdout.
 
 Each milestone should have tests or recorded validation and documentation. The scheduled warehouse pipeline and experimental baseline are implemented; predictive improvements, the assistant, and the dashboard remain ahead.

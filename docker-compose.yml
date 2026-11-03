@@ -54,6 +54,19 @@ services:
       - ./data/processed/delivery_delay:/app/data/processed/delivery_delay:ro
       - ./data/processed/delivery_delay_models:/app/data/processed/delivery_delay_models
 
+  comparison:
+    build: .
+    profiles: ["tools"]
+    command: ["python", "-m", "ml.compare_models"]
+    environment:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    volumes:
+      - ./data/processed/delivery_delay:/app/data/processed/delivery_delay:ro
+      - ./models:/app/models:ro
+      - ./data/processed/model_comparison:/app/data/processed/model_comparison
+
   analysis:
     build: .
     profiles: ["tools"]
